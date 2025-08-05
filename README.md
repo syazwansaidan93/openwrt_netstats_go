@@ -16,7 +16,7 @@ This Go application is designed to periodically collect network traffic statisti
 
 ### Prerequisites
 
-* **Go Language:** Go 1.16 or newer installed on your Orange Pi Zero 3.
+* **Go Language:** Go 1.16 or newer installed on your linux.
 * **Router Endpoints:** Your router must expose endpoints for `totalwifi.cgi` (WiFi client stats), `wan.cgi` (WAN interface stats), and `dhcp.cgi` (DHCP leases). These are common on OpenWrt-based systems.
 
 ### 1. Application Files
