@@ -224,8 +224,12 @@ func fetchData(url string) (string, error) {
 		return "", ErrURLEmpty // Use the custom error
 	}
 
-	client := http.Client{
+	// Create a custom HTTP client with a transport that disables keep-alives
+	client := &http.Client{
 		Timeout: 10 * time.Second, // 10-second timeout for requests
+		Transport: &http.Transport{
+			DisableKeepAlives: true, // Disable HTTP keep-alives to prevent idle channel issues
+		},
 	}
 
 	resp, err := client.Get(url)
@@ -382,7 +386,7 @@ func updateTrafficStats(db *sql.DB, mutex *sync.Mutex, entityID string, newRX, n
 
 	// Initialize monthly stats if not present
 	var monthlyCount int
-	err = tx.QueryRow("SELECT COUNT(*) FROM monthly_stats WHERE id = ?", entityID).Scan(&monthlyCount)
+	err = db.QueryRow("SELECT COUNT(*) FROM monthly_stats WHERE id = ?", entityID).Scan(&monthlyCount)
 	if err != nil {
 		return fmt.Errorf("error checking monthly stats existence for %s: %w", entityID, err)
 	}
@@ -563,7 +567,7 @@ func main() {
 					if err != ErrURLEmpty { // Only print error if it's not due to an empty URL
 						fmt.Printf("Error fetching AP stats for %s: %v\n", routerIP, err)
 					}
-				} else { // This 'else' must be on the same line as the closing '}' of the 'if'
+				} else {
 					clients, err := parseWiFiStats(apData)
 					if err != nil {
 						fmt.Printf("Error parsing WiFi stats for %s: %v\n", routerIP, err)
@@ -584,7 +588,7 @@ func main() {
 					if err != ErrURLEmpty { // Only print error if it's not due to an empty URL
 						fmt.Printf("Error fetching WAN stats for %s: %v\n", routerIP, err)
 					}
-				} else { // This 'else' must be on the same line as the closing '}' of the 'if'
+				} else {
 					wan, err := parseWANStats(wanData)
 					if err != nil {
 						fmt.Printf("Error parsing WAN stats for %s: %v\n", routerIP, err)
@@ -603,7 +607,7 @@ func main() {
 					if err != ErrURLEmpty { // Only print error if it's not due to an empty URL
 						fmt.Printf("Error fetching DHCP leases for %s: %v\n", routerIP, err)
 					}
-				} else { // This 'else' must be on the same line as the closing '}' of the 'if'
+				} else {
 					leases, err := parseDHCPLeases(dhcpData)
 					if err != nil {
 						fmt.Printf("Error parsing DHCP leases for %s: %v\n", routerIP, err)
