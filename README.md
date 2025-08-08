@@ -68,7 +68,6 @@ Place the following files in a dedicated directory on your Orange Pi Zero 3, for
     }
 }
 
-
 ```
 
 * **Important:** Ensure the URLs in `routers.json` are correct for your router. If a URL is empty, the script will gracefully skip fetching data for that endpoint.
