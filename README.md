@@ -57,12 +57,12 @@ Place the following files in a dedicated directory on your Orange Pi Zero 3, for
 ```
 {
     "192.168.1.1": {
-        "ap_stats": "[http://192.168.1.1/cgi-bin/totalwifi.cgi](http://192.168.1.1/cgi-bin/totalwifi.cgi)",
-        "wan_stats": "[http://192.168.1.1/cgi-bin/wan.cgi](http://192.168.1.1/cgi-bin/wan.cgi)",
-        "dhcp_leases": "[http://192.168.1.1/cgi-bin/dhcp.cgi](http://192.168.1.1/cgi-bin/dhcp.cgi)"
+        "ap_stats": "http://192.168.1.1/cgi-bin/totalwifi.cgi",
+        "wan_stats": "http://192.168.1.1/cgi-bin/wan.cgi",
+        "dhcp_leases": "http://192.168.1.1/cgi-bin/dhcp.cgi"
     },
     "192.168.1.2": {
-        "ap_stats": "",        // Leave empty if not available or not needed
+        "ap_stats": "http://192.168.1.2/cgi-bin/totalwifi.cgi",
         "wan_stats": "",       // The script will skip fetching for empty URLs
         "dhcp_leases": ""
     }
