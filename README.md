@@ -84,10 +84,7 @@ cd /home/wan/netstat/
 go mod init router_stats
 
 # Download the SQLite driver dependency
-go get [github.com/mattn/go-sqlite3](https://github.com/mattn/go-sqlite3)
-
-# IMPORTANT: If you get "build output 'router_stats_go' already exists" error, remove it first:
-rm router_stats_go
+go get github.com/mattn/go-sqlite3
 
 # Build the executable
 go build -o router_stats_go
